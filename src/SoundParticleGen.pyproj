@@ -27,11 +27,16 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="input\" />
     <Folder Include="map\" />
+    <Folder Include="render\" />
+    <Folder Include="testgui\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="main.py" />
     <Compile Include="map\points.py" />
+    <Compile Include="testgui\gui.py" />
+    <Compile Include="testgui\pwindow.py" />
   </ItemGroup>
   <Import Condition="Exists($(PtvsTargetsFile))" Project="$(PtvsTargetsFile)" />
   <Import Condition="!Exists($(PtvsTargetsFile))" Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
