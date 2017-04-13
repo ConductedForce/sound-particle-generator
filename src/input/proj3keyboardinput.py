@@ -22,7 +22,7 @@ try:
     kick = pygame.mixer.Sound('kickatbc.wav')
     hi = pygame.mixer.Sound('hi_tune_4.wav')
 except:
-    raise UserWarning, "could not load or play soundfiles in 'data' folder :-("
+    raise UserWarning("could not load or play soundfiles in 'data' folder :-(")
 
 
 class Smoke():
