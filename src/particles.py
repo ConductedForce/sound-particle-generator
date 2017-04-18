@@ -1,5 +1,6 @@
 import pygame,random 
 from pygame.locals import *
+import math
 
 xmax = 1000    #width of window
 ymax = 1000     #height of window
@@ -12,6 +13,8 @@ y3=500
 y2=999
 
 class Smoke():
+    
+
     def __init__(self, startx, starty, col):
         self.x = startx
         self.y = random.randint(0, starty)
@@ -21,7 +24,7 @@ class Smoke():
 
     def move(self, points):
         for p in points:
-            dis = sqrt(pow(self.x-p.x,2) + pow(self.y-p.y,2))
+            dis = math.sqrt(math.pow(self.x-p.x,2) + math.pow(self.y-p.y,2))
             if dis <= 20:
              # if self.x and self.y are (x) distance from p.x and p.y
              # do a thing
@@ -52,6 +55,17 @@ class poops():
 
 
 def draw(points):
+    pygame.init()
+    screen = pygame.display.set_mode((xmax,ymax))
+    black = (0,0,0)
+    grey = (145,145,145)
+    light_grey = (192,192,192)
+    dark_grey = (183, 183, 183)
+    blue = (0,153,153)
+    red = (225,0,0)
+    green =(103,255,255)
+    light_blue=(0,255,255)
+
     particles = []
     for part in range(1000):
         if part % 2 > 0: col = green
@@ -82,7 +96,13 @@ def main():
     clock = pygame.time.Clock()
 
 
-
+    particles = []
+    for part in range(1000):
+        if part % 2 > 0: col = green
+        #elif part % 5 > 0: col = dark_grey
+        elif part % 3 > 0: col = light_blue
+        else: col = blue
+        particles.append( Smoke(x1, y3, col) )
 
     particles1 = []
     for part in range(1000):
@@ -110,8 +130,9 @@ def main():
 
     points = []
     for d in range(5):
-        points.append( poops(random.randint(-1,100), random.randint(-1,100) )
+        points.append( poops(random.randint(-1,100), random.randint(-1,100)) )
 
+    
     exitflag = False
     while not exitflag:
         for event in pygame.event.get():
@@ -123,10 +144,10 @@ def main():
 
         screen.fill(black)
         for p in particles:
-            p.move()
+            p.move(points)
             pygame.draw.circle(screen, p.col, (p.x, p.y), 2)
         
-        for p in particles1:
+        #for p in particles1:
            # p.move2()
            # pygame.draw.circle(screen, p.col, (p.x, p.y), 2)
 
@@ -137,7 +158,6 @@ def main():
         #for p3 in particles3:
             #p3.move()
             #pygame.draw.circle(screen, p3.col, (p3.x, p3.y), 2)
-
         draw(points)
 
         pygame.display.flip()
