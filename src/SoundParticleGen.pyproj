@@ -29,14 +29,15 @@
   <ItemGroup>
     <Folder Include="input\" />
     <Folder Include="map\" />
+    <Folder Include="points\" />
     <Folder Include="render\" />
-    <Folder Include="testgui\" />
+    <Folder Include="gui\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="input\proj3keyboardinput.py" />
     <Compile Include="main.py" />
     <Compile Include="map\points.py" />
-    <Compile Include="testgui\gui.py" />
-    <Compile Include="testgui\pwindow.py" />
+    <Compile Include="gui\pwindow.py" />
   </ItemGroup>
   <Import Condition="Exists($(PtvsTargetsFile))" Project="$(PtvsTargetsFile)" />
   <Import Condition="!Exists($(PtvsTargetsFile))" Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />

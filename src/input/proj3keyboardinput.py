@@ -16,13 +16,13 @@ ymax = 600     #height of window
 pygame.mixer.pre_init(44100, -16, 2, 2048) # setup mixer to avoid sound lag
 pygame.init()
 try:
-    cymbals = pygame.mixer.Sound('cymbals.wav')  #load sound
-    bitchin = pygame.mixer.Sound('bitchin.wav')  #load sound
-    bassDrum = pygame.mixer.Sound('Bass drum.wav')
-    kick = pygame.mixer.Sound('kickatbc.wav')
-    hi = pygame.mixer.Sound('hi_tune_4.wav')
+    cymbals = pygame.mixer.Sound('input//cymbals.wav')  #load sound
+    bitchin = pygame.mixer.Sound('input//bitchin.wav')  #load sound
+    bassDrum = pygame.mixer.Sound('input//Bass drum.wav')
+    kick = pygame.mixer.Sound('input//kickatbc.wav')
+    hi = pygame.mixer.Sound('input//hi_tune_4.wav')
 except:
-    raise UserWarning("could not load or play soundfiles in 'data' folder :-(")
+    raise UserWarning("Could not load or play soundfiles in 'data' folder :-(")
 
 
 class Smoke():
