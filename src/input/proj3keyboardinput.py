@@ -63,7 +63,7 @@ try:
     g6 = pygame.mixer.Sound('g6.wav')
 
 except:
-    raise UserWarning, "could not load or play soundfiles in 'data' folder :-("
+    raise UserWarning("Could not load or play soundfiles in 'data' folder :-(")
 
 
 class Smoke():
