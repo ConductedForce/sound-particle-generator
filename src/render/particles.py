@@ -25,24 +25,30 @@ class Smoke():
     def move(self, points):
         for p in points:
             dis = math.sqrt(math.pow(self.x-p.x,2) + math.pow(self.y-p.y,2))
-            if dis <= 20:
+            #if dis > 520:
              # if self.x and self.y are (x) distance from p.x and p.y
              # do a thing
-              self.x -= 3
-              self.y -= 6
-            if dis >= 20:
-              self.x += 3
-              self.y += 6
+              #self.x -= random.randint(1,300)
+              #if self.x <100:
+               #   self.x+=random.randint(1,80)
+              #self.y += random.randint(1,100)
+             
+            if dis < 500:
+                #moves to the left 
+              self.x += random.randint(1,540)
+               #they go down
+              self.y +=random.randint(1,600)
+
                    
     def move2(self):
         if self.y == 0:
-           self.y = random.randint(0, 600)
+           self.y = random.randint(0, 100)
         else:
             self.y += 3
-        self.x -= random.randint(0, 10)
+        self.x -= random.randint(0, 100)
     def move3(self):
         if self.y == 500:
-            self.y = random.randint(0,500)
+            self.y = random.randint(0,100)
         else:
             self.y += 1
         self.x -= random.randint(0,10)
@@ -73,6 +79,7 @@ def draw(points):
         elif part % 3 > 0: col = light_blue
         else: col = blue
         particles.append( Smoke(x1, y3, col) )
+        
 
     for p in particles:
             p.move(points)
