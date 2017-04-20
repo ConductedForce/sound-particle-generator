@@ -24,3 +24,4 @@ def create():
         randPoints.append((x,y))
         i += 1
         excluded.update((x+dx, y+dy) for (dx,dy) in deltas)
+    return randPoints
