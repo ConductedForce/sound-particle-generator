@@ -5,14 +5,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>bae2ef9d-f049-464b-98f9-b429b7ab5407</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>
-    </StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>SoundParticleGen</Name>
     <RootNamespace>SoundParticleGen</RootNamespace>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -27,7 +27,18 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="particles.py" />
+    <Folder Include="input\" />
+    <Folder Include="map\" />
+    <Folder Include="points\" />
+    <Folder Include="render\" />
+    <Folder Include="gui\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="render\particles.py" />
+    <Compile Include="input\proj3keyboardinput.py" />
+    <Compile Include="main.py" />
+    <Compile Include="map\points.py" />
+    <Compile Include="gui\pwindow.py" />
   </ItemGroup>
   <Import Condition="Exists($(PtvsTargetsFile))" Project="$(PtvsTargetsFile)" />
   <Import Condition="!Exists($(PtvsTargetsFile))" Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
