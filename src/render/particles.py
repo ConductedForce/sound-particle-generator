@@ -53,7 +53,7 @@ class Smoke():
             self.y += 1
         self.x -= random.randint(0,10)
 
-class poops():
+class Particle():
     def __init__(self, startx, starty):
         self.x = startx
         self.y = starty
@@ -137,7 +137,7 @@ def main():
 
     points = []
     for d in range(5):
-        points.append( poops(random.randint(-1,100), random.randint(-1,100)) )
+        points.append( Particle(random.randint(-1,100), random.randint(-1,100)) )
 
     
     exitflag = False
