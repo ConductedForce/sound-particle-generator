@@ -29,7 +29,7 @@
   <ItemGroup>
     <Folder Include="input\" />
     <Folder Include="map\" />
-    <Folder Include="points\" />
+    <Folder Include="analysis\" />
     <Folder Include="render\" />
     <Folder Include="gui\" />
   </ItemGroup>
