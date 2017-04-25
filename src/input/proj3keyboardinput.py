@@ -6,21 +6,62 @@ http://www.findsounds.com/
 http://soundcavern.free.fr/guitar/
 '''
 
-import pygame,random
+import pygame,random, array
 from pygame.locals import *
 
 xmax = 1000    #width of window
 ymax = 600     #height of window
 
 # VVV Added part VVV
-pygame.mixer.pre_init(44100, -16, 2, 2048) # setup mixer to avoid sound lag
+#pygame.mixer.pre_init(44100, -16, 2, 2048) # setup mixer to avoid sound lag
+pygame.mixer.init(48000, -16, 1, 1024)
 pygame.init()
+
+fadeTime=1000
+maxTime=0,1,10,100,1000
+pygame.mixer.fadeout(fadeTime)
+
 try:
-    cymbals = pygame.mixer.Sound('input//cymbals.wav')  #load sound
-    bitchin = pygame.mixer.Sound('input//bitchin.wav')  #load sound
-    bassDrum = pygame.mixer.Sound('input//Bass drum.wav')
-    kick = pygame.mixer.Sound('input//kickatbc.wav')
-    hi = pygame.mixer.Sound('input//hi_tune_4.wav')
+    cymbals = pygame.mixer.Sound('cymbals.wav')  #load sound
+    bitchin = pygame.mixer.Sound('bitchin.wav')  #load sound
+    bassDrum = pygame.mixer.Sound('Bass drum.wav')
+    kick = pygame.mixer.Sound('kickatbc.wav')
+    hi = pygame.mixer.Sound('hi_tune_4.wav')
+
+    #piano
+    c3 = pygame.mixer.Sound('c3.wav')
+    c4 = pygame.mixer.Sound('c4.wav')
+    c5 = pygame.mixer.Sound('c5.wav')
+    c6 = pygame.mixer.Sound('c6.wav')
+    c7 = pygame.mixer.Sound('c7.wav')
+    c8 = pygame.mixer.Sound('c8.wav')
+    '''
+    #guitar
+    gh3 = pygame.mixer.Sound('gh3.wav')
+    gh4 = pygame.mixer.Sound('gh4.wav')
+    gn3 = pygame.mixer.Sound('gn3.wav')
+    gn4 = pygame.mixer.Sound('gn4.wav')
+    gn5 = pygame.mixer.Sound('gn5.wav')
+    gp3 = pygame.mixer.Sound('gp3.wav')
+    gp4 = pygame.mixer.Sound('gp4.wav')
+    gs3 = pygame.mixer.Sound('gs3.wav')
+    gs4 = pygame.mixer.Sound('gs4.wav')
+    '''
+    #better guitar
+    A = pygame.mixer.Sound('A.aif')
+    B = pygame.mixer.Sound('B.aif')
+    D = pygame.mixer.Sound('D.aif')
+    E = pygame.mixer.Sound('E.aif')
+    G = pygame.mixer.Sound('G.aif')
+
+    #guitar 
+    g1 = pygame.mixer.Sound('g1.wav')
+    g2 = pygame.mixer.Sound('g2.wav')
+    g3 = pygame.mixer.Sound('g3.wav')
+    g4 = pygame.mixer.Sound('g4.wav')
+    g5 = pygame.mixer.Sound('g5.wav')
+    g6 = pygame.mixer.Sound('g6.wav')
+
 except:
     raise UserWarning("Could not load or play soundfiles in 'data' folder :-(")
 
@@ -72,16 +113,52 @@ def main():
                 if event.key == K_ESCAPE:
                     exitflag = True
                 elif event.key == pygame.K_z:
-                    cymbals.play()
+                    g1.play()
                 elif event.key == pygame.K_x:
-                    bassDrum.play()
+                    g2.play()
                 elif event.key == pygame.K_c:
-                    kick.play()
+                    g3.play()
                 elif event.key == pygame.K_v:
-                    hi.play()
+                    g4.play()
                 elif event.key == pygame.K_b:
-                    bitchin.play()
+                    g5.play()
+                elif event.key == pygame.K_n:
+                    g6.play()
+                #paino
+                elif event.key == pygame.K_q:
+                    c3.play()
+                elif event.key == pygame.K_w:
+                    c4.play()
+                elif event.key == pygame.K_e:
+                    c5.play()
+                elif event.key == pygame.K_r:
+                    c6.play()
+                elif event.key == pygame.K_t:
+                    c7.play()
+                elif event.key == pygame.K_y:
+                    c8.play()
+                #guitar
+                elif event.key == pygame.K_a:
+                    A.play()
+                elif event.key == pygame.K_s:
+                    B.play()
+                elif event.key == pygame.K_d:
+                    D.play()
+                elif event.key == pygame.K_f:
+                    E.play()
+                elif event.key == pygame.K_g:
+                    G.play()
+                    '''
+                elif event.key == pygame.K_h:
+                    gp3.play()
+                elif event.key == pygame.K_j:
+                    gp4.play()
+                elif event.key == pygame.K_k:
+                    gs3.play()
+                elif event.key == pygame.K_l:
+                    gs4.play()
 
+                    '''
 
         screen.fill(black)
         for p in particles:
