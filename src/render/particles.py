@@ -34,7 +34,6 @@ class Particle():
                 # if self.y >=150:
                 #self.y +=random.randint(50,900)
 
-                   
         def move2(self):
             if self.y == 0:
                 self.y = random.randint(0, 100)
