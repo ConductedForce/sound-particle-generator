@@ -1,13 +1,13 @@
 import random
 
 radius = 200
-rangeX = (0, 2500)
-rangeY = (0, 2500)
-qty = 100  # quantity of points
+rangeX = (0, 500)
+rangeY = (0, 500)
+qty = 1  # quantity of points
 
 #create a set of all points within 200 of the origin
 
-class Particle():
+class Point():
     def __init__(self, startx, starty):
         self.x = startx
         self.y = starty
@@ -27,7 +27,7 @@ def create():
         y = random.randrange(*rangeY)
         if (x,y) in excluded: 
             continue
-        randPoints.append(Particle(x,y))
+        randPoints.append(Point(x,y))
         i += 1
         excluded.update((x+dx, y+dy) for (dx,dy) in deltas)
     return randPoints

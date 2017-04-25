@@ -13,8 +13,12 @@ import map.points as pm
 
 
 def deploy():
-    pygame.init()
+    points = []
+    #pygame.init()
     exitflag = False
+    points = pm.create() # point generator
+    activeRender = ren.Render()
+    activeRender.make()
     while not exitflag:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -23,11 +27,12 @@ def deploy():
                 if event.key == pygame.K_ESCAPE:
                     exitflag = True
 
-        #main loop code
+            #main loop code
         keyb.main() # input system
-        # analysis system
-        points = pm.create() # point generator
-        ren.draw(points) # draw system
+            # analysis system
+        activeRender.draw(points) # draw system
+    pygame.quit()
+
 
 #a gui
 class TheGui(QMainWindow):
