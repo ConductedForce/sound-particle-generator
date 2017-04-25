@@ -30,4 +30,9 @@ def create():
         randPoints.append(Point(x,y))
         i += 1
         excluded.update((x+dx, y+dy) for (dx,dy) in deltas)
-    return randPoints
+
+    points = []
+    for d in range(5):
+        points.append( Point(random.randint(-1,100), random.randint(-1,100)) )
+
+    return points

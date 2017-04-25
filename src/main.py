@@ -15,6 +15,7 @@ import map.points as pm
 def deploy():
     points = []
     #pygame.init()
+    clock = pygame.time.Clock()
     exitflag = False
     points = pm.create() # point generator
     activeRender = ren.Render()
@@ -27,10 +28,13 @@ def deploy():
                 if event.key == pygame.K_ESCAPE:
                     exitflag = True
 
-            #main loop code
+        #main loop code
         keyb.main() # input system
             # analysis system
         activeRender.draw(points) # draw system
+        
+        pygame.display.flip()
+        clock.tick(80)
     pygame.quit()
 
 
