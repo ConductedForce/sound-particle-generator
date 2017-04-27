@@ -21,7 +21,7 @@ class Particle():
                 #   self.x+=random.randint(1,80)
                 #self.y += random.randint(1,100)
                 #distanst to the point 
-                if dis < 400:
+                if dis > 20:
                      #What you want the pixels to do once they reach/past this distanst
                      #moves to the left 
                     self.x = random.randint(-1,900)
@@ -34,7 +34,6 @@ class Particle():
                 # if self.y >=150:
                 #self.y +=random.randint(50,900)
 
-                   
         def move2(self):
             if self.y == 0:
                 self.y = random.randint(0, 100)
@@ -79,16 +78,15 @@ class Render():
             #elif part % 5 > 0: col = dark_grey
             elif part % 3 > 0: col = self.light_blue
             else: col = self.blue
-            self.particles.append( Particle(self.x1, self.y3, col) )
+            self.particles.append( Particle(0, 500, col) )
 
     def draw(self, points):
+        self.screen.fill(self.black)
         for p in self.particles:
             p.move(points)
             pygame.draw.circle(self.screen, p.col, (p.x, p.y), 2)
-        pygame.display.flip()
+        
 
-
-       
 def main():
     pygame.init()
     
@@ -103,22 +101,12 @@ def main():
 
     clock = pygame.time.Clock()
 
-
-    particles = []
-    for part in range(1000):
-        if part % 2 > 0: col = green
-        #elif part % 5 > 0: col = dark_grey
-        elif part % 3 > 0: col = light_blue
-        else: col = blue
-        particles.append( Particle(0, 500, col) )
-
-   
     points = []
     for d in range(5):
         points.append( Point(random.randint(-1,100), random.randint(-1,100)) )
 
     activeRender = Render()
-    
+    activeRender.make()
 
     exitflag = False
     while not exitflag:
@@ -129,11 +117,7 @@ def main():
                 if event.key == K_ESCAPE:
                     exitflag = True
 
-        #screen.fill(black)
-        #for p in particles:
-            #p.move(points)
-            #pygame.draw.circle(screen, p.col, (p.x, p.y), 2)
-        activeRender.make()
+        
         activeRender.draw(points)
 
         pygame.display.flip()
