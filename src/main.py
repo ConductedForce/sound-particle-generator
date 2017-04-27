@@ -6,27 +6,37 @@ import pygame
 
 #import map.detector as dt
 import input.proj3keyboardinput as keyb
-#import render.particles.py as ren
-#import points.pointMaker as pm
-import map.points as point
+import render.particles as ren
+#import analysis. as sa
+import map.points as pm
 
 
 
 def deploy():
+    points = []
+    #pygame.init()
+    clock = pygame.time.Clock()
     exitflag = False
+    points = pm.create() # point generator
+    activeRender = ren.Render()
+    activeRender.make()
     while not exitflag:
         for event in pygame.event.get():
-            if event.type == QUIT:
+            if event.type == pygame.QUIT:
                 exitflag = True
-            elif event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
                     exitflag = True
 
         #main loop code
         keyb.main() # input system
-        # analysis system
-        # point generator
-        #pon.draw()
+            # analysis system
+        activeRender.draw(points) # draw system
+        
+        pygame.display.flip()
+        clock.tick(80)
+    pygame.quit()
+
 
 #a gui
 class TheGui(QMainWindow):
