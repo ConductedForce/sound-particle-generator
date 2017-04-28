@@ -27,10 +27,10 @@ def deploy():
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     exitflag = True
+                keyb.input(event) # input system
 
         #main loop code
-        keyb.main() # input system
-            # analysis system
+        # analysis system
         activeRender.draw(points) # draw system
         
         pygame.display.flip()
