@@ -8,6 +8,7 @@ import pygame
 import input.proj3keyboardinput as keyb
 import render.particles as ren
 #import analysis. as sa
+import render.path as pt
 import map.points as pm
 
 
@@ -18,6 +19,7 @@ def deploy():
     clock = pygame.time.Clock()
     exitflag = False
     points = pm.create() # point generator
+    path = pt.Path()
     activeRender = ren.Render()
     activeRender.make()
     while not exitflag:
@@ -31,7 +33,7 @@ def deploy():
 
         #main loop code
         # analysis system
-        activeRender.draw(points) # draw system
+        activeRender.draw(points, path) # draw system
         
         pygame.display.flip()
         clock.tick(80)
