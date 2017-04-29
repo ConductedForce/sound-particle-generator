@@ -9,44 +9,51 @@ class Particle():
             self.col = col
             self.sx = startx
             self.sy = starty
-
-        def move(self, points):
+#im in the partile
+        def pdis(self,points):
+            store=[]
             for p in points:
                 dis = math.sqrt(math.pow(self.x-p.x,2) + math.pow(self.y-p.y,2))
-                #if dis > 520:
-                # if self.x and self.y are (x) distance from p.x and p.y
-                # do a thing
-                #self.x -= random.randint(1,300)
-                #if self.x <100:
-                #   self.x+=random.randint(1,80)
-                #self.y += random.randint(1,100)
+                store.append(dis)
+                low = min(float(s) for s in store)
+            return low
+
+
+        def move(self, points, iO):
+                p = points[0]
+                dis = self.pdis(points)
+                 
+                #point loction in here / behavior
                 #distanst to the point 
-                if dis > 20:
+                if dis < 20:
                      #What you want the pixels to do once they reach/past this distanst
+                     self.x-=9
+                     self.x+=19
+                     self.y-=9
+                     self.y+=19 
+                else: 
+                    #what the point does if not near the points
                      #moves to the left 
-                    self.x = random.randint(-1,900)
-                #if self.x >= 100:
-                    #self.x +=random.randint(50,700)
-                # if self.x >= 625:
-                 #self.x += random.randint(50,700)
-                    #they go down
-                    self.y =random.randint(1,800)
-                # if self.y >=150:
-                #self.y +=random.randint(50,900)
-
-        def move2(self):
-            if self.y == 0:
-                self.y = random.randint(0, 100)
-            else:
-                self.y += 3
-            self.x -= random.randint(0, 100)
-        def move3(self):
-            if self.y == 500:
-                self.y = random.randint(0,100)
-            else:
-                self.y += 1
-            self.x -= random.randint(0,10)
-
+                    self.x = random.randint(-1, iO.current_w)
+                                  #they go down
+                    self.y =random.randint(1,iO.current_h) 
+                    if self.x > iO.current_w:
+                        self.x-=60
+                    if self.y >iO.current_h:
+                        self.y-=60
+                    if self.x < 0:
+                        self.x +=60
+                    if self.y < 0:
+                        self.y +=60
+        def attract(self,point):
+            dx=(self.x-p.x)
+            dy=(self.y-p.y)
+            dist = math.hypot(dx,dy)
+            theta=math.atan2(dy,dx)
+            force = 0.2*self.mass*p.mass/dist*2
+            self.accelerate((theta-0.5*math.pi,force/self.mass))
+            p.accelerate((theta + 0.5* math.pi, force/p.mass))
+                                 
 class Point():
         def __init__(self, startx, starty):
             self.x = startx
@@ -54,8 +61,8 @@ class Point():
 
 class Render():
     def __init__(self):
-        infoObject = pygame.display.Info()
-        self.screen = pygame.display.set_mode((infoObject.current_w, infoObject.current_h))
+        self.infoObject = pygame.display.Info()
+        self.screen = pygame.display.set_mode((self.infoObject.current_w, self.infoObject.current_h))
         pygame.init()
 
         self.black = (0,0,0)
@@ -78,14 +85,15 @@ class Render():
             #elif part % 5 > 0: col = dark_grey
             elif part % 3 > 0: col = self.light_blue
             else: col = self.blue
-            self.particles.append( Particle(0, 500, col) )
+            self.particles.append( Particle(0, 1000, col) )
 
     def draw(self, points):
         self.screen.fill(self.black)
         for p in self.particles:
-            p.move(points)
+            p.move(points, self.infoObject)
             pygame.draw.circle(self.screen, p.col, (p.x, p.y), 2)
-        
+        for po in points:
+            pygame.draw.circle(self.screen, self.red, (po.x, po.y), 10)
 
 def main():
     pygame.init()
@@ -102,12 +110,12 @@ def main():
     clock = pygame.time.Clock()
 
     points = []
-    for d in range(5):
-        points.append( Point(random.randint(-1,100), random.randint(-1,100)) )
+    for d in range(10):
+        points.append( Point(random.randint(-1,800), random.randint(-1,700)) )
 
     activeRender = Render()
     activeRender.make()
-
+   
     exitflag = False
     while not exitflag:
         for event in pygame.event.get():
