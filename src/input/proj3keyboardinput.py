@@ -61,62 +61,56 @@ except:
 
 
 
-def main():
-    # VVV Added Part VVV
-    pressed = pygame.key.get_pressed()
-    exitflag = False
-    for event in pygame.event.get():
-        if event.type == KEYDOWN:
-            if event.key == K_ESCAPE:
-                exitflag = True
-            elif event.key == pygame.K_z:
-                g1.play()
-            elif event.key == pygame.K_x:
-                g2.play()
-            elif event.key == pygame.K_c:
-                g3.play()
-            elif event.key == pygame.K_v:
-                g4.play()
-            elif event.key == pygame.K_b:
-                g5.play()
-            elif event.key == pygame.K_n:
-                g6.play()
-            #paino
-            elif event.key == pygame.K_q:
-                c3.play()
-            elif event.key == pygame.K_w:
-                c4.play()
-            elif event.key == pygame.K_e:
-                c5.play()
-            elif event.key == pygame.K_r:
-                c6.play()
-            elif event.key == pygame.K_t:
-                c7.play()
-            elif event.key == pygame.K_y:
-                c8.play()
-            #guitar
-            elif event.key == pygame.K_a:
-                A.play()
-            elif event.key == pygame.K_s:
-                B.play()
-            elif event.key == pygame.K_d:
-                D.play()
-            elif event.key == pygame.K_f:
-                E.play()
-            elif event.key == pygame.K_g:
-                G.play()
-            '''
-                elif event.key == pygame.K_h:
-                    gp3.play()
-                elif event.key == pygame.K_j:
-                    gp4.play()
-                elif event.key == pygame.K_k:
-                    gs3.play()
-                elif event.key == pygame.K_l:
-                    gs4.play()
-
-                    '''
+def input(event):
+    if event.key == K_ESCAPE:
+        exitflag = True
+    elif event.key == pygame.K_z:
+        g1.play()
+    elif event.key == pygame.K_x:
+        g2.play()
+    elif event.key == pygame.K_c:
+        g3.play()
+    elif event.key == pygame.K_v:
+        g4.play()
+    elif event.key == pygame.K_b:
+        g5.play()
+    elif event.key == pygame.K_n:
+        g6.play()
+        #paino
+    elif event.key == pygame.K_q:
+        c3.play()
+    elif event.key == pygame.K_w:
+        c4.play()
+    elif event.key == pygame.K_e:
+        c5.play()
+    elif event.key == pygame.K_r:
+        c6.play()
+    elif event.key == pygame.K_t:
+        c7.play()
+    elif event.key == pygame.K_y:
+        c8.play()
+        #guitar
+    elif event.key == pygame.K_a:
+        A.play()
+    elif event.key == pygame.K_s:
+        B.play()
+    elif event.key == pygame.K_d:
+        D.play()
+    elif event.key == pygame.K_f:
+        E.play()
+    elif event.key == pygame.K_g:
+        G.play()
+        '''
+           elif event.key == pygame.K_h:
+               gp3.play()
+           elif event.key == pygame.K_j:
+               gp4.play()
+           elif event.key == pygame.K_k:
+               gs3.play()
+           elif event.key == pygame.K_l:
+               gs4.play()
+        '''
 
        
 if __name__ == "__main__":
-    main()
+    input()
