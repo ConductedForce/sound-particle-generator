@@ -6,11 +6,14 @@ class Path():
     path4 = []
     path5 = []
 
-    listPoints1 = [''' define a set of points here'''] # a set of points
-    listPoints2 = [] # another set of points
+    listPoints1 = [10,60,140,170,230,290,300,350,400'''define a set of points here'''] # a set of points
+    listPoints2 = [20,70,120,170,210,240,300,340,390] # another set of points
 
     def __init__(self):
         #create paths (use list of points to create a path from the beginning of the array to the end)
+        for p1 in path1 and path2:
+            self.createPath=p2
+
         #can make multiple paths
 
     class Point():
