@@ -45,14 +45,6 @@ class Particle():
                         self.x +=60
                     if self.y < 0:
                         self.y +=60
-        def attract(self,point):
-            dx=(self.x-p.x)
-            dy=(self.y-p.y)
-            dist = math.hypot(dx,dy)
-            theta=math.atan2(dy,dx)
-            force = 0.2*self.mass*p.mass/dist*2
-            self.accelerate((theta-0.5*math.pi,force/self.mass))
-            p.accelerate((theta + 0.5* math.pi, force/p.mass))
                                  
 class Point():
         def __init__(self, startx, starty):
