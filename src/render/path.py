@@ -37,7 +37,7 @@ class Path():
         #if random angle used, add 180 for other angle
         #append p1 and p2 
         for i in mpoint:
-            angle = random.randint(0,360)
+            angle = random.randint(0,360) #2*pi*random
             point1 = Point(rcos(angle), rsin(angle))
             point2 = Point(rcos(angle), rsin(angle+180))
             listpoint1.append (point1)
