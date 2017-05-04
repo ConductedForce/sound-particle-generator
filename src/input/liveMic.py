@@ -15,7 +15,7 @@ class mic():
                     input=True,
                     frames_per_buffer=CHUNK)
 
-    def getChunkData():
+    def getMicChunkData():
           data = stream.read(CHUNK)
           return data
        
