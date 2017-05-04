@@ -2,95 +2,94 @@ import pygame,random
 from pygame.locals import *
 import math
 
-xmax = 1000    #width of window
-ymax = 1000     #height of window
-
-x1=0
-x3=500
-x2=999
-y1=0
-y3=500
-y2=999
-
-class Smoke():
-    
-
-    def __init__(self, startx, starty, col):
-        self.x = startx
-        self.y = random.randint(0, starty)
-        self.col = col
-        self.sx = startx
-        self.sy = starty
-
-    def move(self, points):
-        for p in points:
-            dis = math.sqrt(math.pow(self.x-p.x,2) + math.pow(self.y-p.y,2))
-            #if dis > 520:
-             # if self.x and self.y are (x) distance from p.x and p.y
-             # do a thing
-              #self.x -= random.randint(1,300)
-              #if self.x <100:
-               #   self.x+=random.randint(1,80)
-              #self.y += random.randint(1,100)
-             
-            if dis < 500:
-                #moves to the left 
-              self.x += random.randint(1,540)
-               #they go down
-              self.y +=random.randint(1,600)
-
-                   
-    def move2(self):
-        if self.y == 0:
-           self.y = random.randint(0, 100)
-        else:
-            self.y += 3
-        self.x -= random.randint(0, 100)
-    def move3(self):
-        if self.y == 500:
-            self.y = random.randint(0,100)
-        else:
-            self.y += 1
-        self.x -= random.randint(0,10)
-
-class poops():
-    def __init__(self, startx, starty):
-        self.x = startx
-        self.y = starty
+class Particle():
+        def __init__(self, startx, starty, col):
+            self.x = startx
+            self.y = random.randint(0, starty)
+            self.col = col
+            self.sx = startx
+            self.sy = starty
+#im in the partile
+        def pdis(self,points):
+            store=[]
+            for p in points:
+                dis = math.sqrt(math.pow(self.x-p.x,2) + math.pow(self.y-p.y,2))
+                store.append(dis)
+                low = min(float(s) for s in store)
+            return low
 
 
+        def move(self, points, iO):
+                p = points[0]
+                dis = self.pdis(points)
+                 
+                #point loction in here / behavior
+                #distanst to the point 
+                if dis < 20:
+                     #What you want the pixels to do once they reach/past this distanst
+                     self.x-=9
+                     self.x+=19
+                     self.y-=9
+                     self.y+=19 
+                else: 
+                    #what the point does if not near the points
+                     #moves to the left 
+                    self.x = random.randint(-1, iO.current_w)
+                                  #they go down
+                    self.y =random.randint(1,iO.current_h) 
+                    if self.x > iO.current_w:
+                        self.x-=60
+                    if self.y >iO.current_h:
+                        self.y-=60
+                    if self.x < 0:
+                        self.x +=60
+                    if self.y < 0:
+                        self.y +=60
+                                 
+class Point():
+        def __init__(self, startx, starty):
+            self.x = startx
+            self.y = starty
 
-def draw(points):
-    pygame.init()
-    screen = pygame.display.set_mode((xmax,ymax))
-    black = (0,0,0)
-    grey = (145,145,145)
-    light_grey = (192,192,192)
-    dark_grey = (183, 183, 183)
-    blue = (0,153,153)
-    red = (225,0,0)
-    green =(103,255,255)
-    light_blue=(0,255,255)
+class Render():
+    def __init__(self):
+        self.infoObject = pygame.display.Info()
+        self.screen = pygame.display.set_mode((self.infoObject.current_w, self.infoObject.current_h))
+        pygame.init()
 
-    particles = []
-    for part in range(1000):
-        if part % 2 > 0: col = green
-        #elif part % 5 > 0: col = dark_grey
-        elif part % 3 > 0: col = light_blue
-        else: col = blue
-        particles.append( Smoke(x1, y3, col) )
-        
+        self.black = (0,0,0)
+        self.grey = (145,145,145)
+        self.light_grey = (192,192,192)
+        self.dark_grey = (183, 183, 183)
+        self.blue = (0,153,153)
+        self.red = (225,0,0)
+        self.green =(103,255,255)
+        self.light_blue=(0,255,255)
 
-    for p in particles:
-            p.move(points)
-            pygame.draw.circle(screen, p.col, (p.x, p.y), 2)
+        self.particles = [] #particles
 
+        self.x1=0
+        self.y3=500
 
+    def make(self):
+        for part in range(1000):
+            if part % 2 > 0: col = self.green
+            #elif part % 5 > 0: col = dark_grey
+            elif part % 3 > 0: col = self.light_blue
+            else: col = self.blue
+            self.particles.append( Particle(0, 1000, col) )
 
- 
+    def draw(self, points):
+        self.screen.fill(self.black)
+        for p in self.particles:
+            p.move(points, self.infoObject)
+            pygame.draw.circle(self.screen, p.col, (p.x, p.y), 2)
+        for po in points:
+            pygame.draw.circle(self.screen, self.red, (po.x, po.y), 10)
+
 def main():
     pygame.init()
-    screen = pygame.display.set_mode((xmax,ymax))
+    
     black = (0,0,0)
     grey = (145,145,145)
     light_grey = (192,192,192)
@@ -102,44 +101,13 @@ def main():
 
     clock = pygame.time.Clock()
 
-
-    particles = []
-    for part in range(1000):
-        if part % 2 > 0: col = green
-        #elif part % 5 > 0: col = dark_grey
-        elif part % 3 > 0: col = light_blue
-        else: col = blue
-        particles.append( Smoke(x1, y3, col) )
-
-    particles1 = []
-    for part in range(1000):
-        if part % 2 > 0: col = green
-        #elif part % 5 > 0: col = dark_grey
-        elif part % 3 > 0: col = light_blue
-        else: col = blue
-        particles1.append( Smoke(x3, y1, col) )
-    
-    particles2 = []
-    for part in range(1000):
-        if part % 2 > 0: col = green
-        #elif part % 5 > 0: col = dark_grey
-        elif part % 3 > 0: col = light_blue
-        else: col = blue
-        particles2.append( Smoke(x2, y3, col) )
-    
-    particles3 = []
-    for part in range(1000):
-        if part % 2 > 0: col = green
-        #elif part % 5 > 0: col = dark_grey
-        elif part % 3 > 0: col = light_blue
-        else: col = blue
-        particles3.append( Smoke(x3, y2, col) )
-
     points = []
-    for d in range(5):
-        points.append( poops(random.randint(-1,100), random.randint(-1,100)) )
+    for d in range(10):
+        points.append( Point(random.randint(-1,800), random.randint(-1,700)) )
 
-    
+    activeRender = Render()
+    activeRender.make()
+   
     exitflag = False
     while not exitflag:
         for event in pygame.event.get():
@@ -149,23 +117,8 @@ def main():
                 if event.key == K_ESCAPE:
                     exitflag = True
 
-        screen.fill(black)
-        for p in particles:
-            p.move(points)
-            pygame.draw.circle(screen, p.col, (p.x, p.y), 2)
         
-        #for p in particles1:
-           # p.move2()
-           # pygame.draw.circle(screen, p.col, (p.x, p.y), 2)
-
-        #for p in particles2:
-           # p.move3()
-           # pygame.draw.circle(screen, p.col, (p.x, p.y), 2)
-
-        #for p3 in particles3:
-            #p3.move()
-            #pygame.draw.circle(screen, p3.col, (p3.x, p3.y), 2)
-        draw(points)
+        activeRender.draw(points)
 
         pygame.display.flip()
         clock.tick(80)
