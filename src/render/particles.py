@@ -1,15 +1,19 @@
 import pygame,random 
 from pygame.locals import *
 import math
+import path as pt
 
 class Particle():
+
+        pathway = []
+
         def __init__(self, startx, starty, col):
             self.x = startx
             self.y = random.randint(0, starty)
             self.col = col
             self.sx = startx
             self.sy = starty
-#im in the partile
+#im in the particle
         def pdis(self,points):
             store=[]
             for p in points:
@@ -18,33 +22,43 @@ class Particle():
                 low = min(float(s) for s in store)
             return low
 
+        def readPath(mpoints):
+            road = pt.Path(mpoints)
+            path = road.path1
+            #loop through path
+            for i in path:
+                if i.type == road.Line().type:
+                    pathway.extend(i)
+                if i.type == road.SemiCircle().type:
+                    pathway.extend(i)
+            #determine type of i
+            #i.type equals road.Line().type
+            #extend pathway[] (i)
+            # no else
 
         def move(self, points, iO):
-                p = points[0]
-                dis = self.pdis(points)
-                 
+                dis = self.pdis()
                 #point loction in here / behavior
-                #distanst to the point 
-                if dis < 20:
-                     #What you want the pixels to do once they reach/past this distanst
-                     self.x-=9
-                     self.x+=19
-                     self.y-=9
-                     self.y+=19 
-                else: 
-                    #what the point does if not near the points
-                     #moves to the left 
-                    self.x = random.randint(-1, iO.current_w)
-                                  #they go down
-                    self.y =random.randint(1,iO.current_h) 
-                    if self.x > iO.current_w:
-                        self.x-=60
-                    if self.y >iO.current_h:
-                        self.y-=60
-                    if self.x < 0:
-                        self.x +=60
-                    if self.y < 0:
-                        self.y +=60
+                for i in pathway 
+
+                if:
+                else:
+                #firstly, we want to get particles to path
+                #then we must get them moving
+                #as they are moving, they must have random value x radius from path point
+                #generate new position with cos/sin
+
+                # 3 movement conditions (random, near a music point(no path), 
+                # if particle is 
+                
+                #circle calculation
+                #t = 2*pi*random
+                #r = random[0,20]
+                #Point( cos(), sin)
+
+                #speed value will determine loop speed
+                
+                    
                                  
 class Point():
         def __init__(self, startx, starty):
