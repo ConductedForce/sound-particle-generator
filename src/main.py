@@ -8,18 +8,14 @@ import pygame
 import input.proj3keyboardinput as keyb
 import render.particles as ren
 #import analysis. as sa
-import render.path as pt
 import map.points as pm
 
-
-
-def deploy():
+def keyb():
     points = []
     #pygame.init()
     clock = pygame.time.Clock()
     exitflag = False
     points = pm.create() # point generator
-    path = pt.Path()
     activeRender = ren.Render()
     activeRender.make()
     while not exitflag:
@@ -33,12 +29,35 @@ def deploy():
 
         #main loop code
         # analysis system
-        activeRender.draw(points, path) # draw system
+        activeRender.draw(points) # draw system
         
         pygame.display.flip()
         clock.tick(80)
     pygame.quit()
 
+def mic():
+    clock = pygame.time.Clock()
+    exitflag = False
+    points = pm.create() # point generator
+    activeRender = ren.Render()
+    activeRender.make()
+    while not exitflag:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exitflag = True
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    exitflag = True
+                
+
+        #main loop code
+        # input system
+        # analysis system
+        activeRender.draw(points) # draw system
+        
+        pygame.display.flip()
+        clock.tick(80)
+    pygame.quit()
 
 #a gui
 class TheGui(QMainWindow):
@@ -49,13 +68,13 @@ class TheGui(QMainWindow):
 
     #gui methods
     def live(self, MainWindow):
-        point.exitHamlet()
+        mic()
 
     def file(self, MainWindow):
-        keyb.main()
+        file()
     
     def keyboard(self, MainWindow):
-        deploy()
+        keyb()
 
 # main method
 def main():
