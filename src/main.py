@@ -4,13 +4,14 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QInputDialog, QLabel, QFi
 import gui.pwindow as pwin
 import pygame
 
-#import map.detector as dt
+import input.liveFile as fileb
+import input.liveMic as micb
 import input.proj3keyboardinput as keyb
 import render.particles as ren
-#import analysis. as sa
-import map.points as pm
+import analysis.points as sa
 
-def keyb():
+
+def key():
     points = []
     #pygame.init()
     clock = pygame.time.Clock()
@@ -38,9 +39,12 @@ def keyb():
 def mic():
     clock = pygame.time.Clock()
     exitflag = False
-    points = pm.create() # point generator
-    activeRender = ren.Render()
-    activeRender.make()
+    
+    points = []
+    micO = micb.mic() #create mic object
+    activeRender = ren.Render() #create render object
+    activeRender.make() #generate particles
+    
     while not exitflag:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -51,8 +55,9 @@ def mic():
                 
 
         #main loop code
-        # input system
-        # analysis system
+        data = micO.getMicChunkData() # input system
+        points = sa.create(data) # analysis system
+        activeRender.readPath(points)
         activeRender.draw(points) # draw system
         
         pygame.display.flip()
@@ -74,7 +79,7 @@ class TheGui(QMainWindow):
         file()
     
     def keyboard(self, MainWindow):
-        keyb()
+        key()
 
 # main method
 def main():

@@ -2,6 +2,11 @@ import pyaudio
 import wave
 import numpy as np
 
+class Point():
+        def __init__(self, startx, starty):
+            self.x = startx
+            self.y = starty
+
 def analyze(frameData):
     # unpack the data and times by the hamming window
     indata = np.array(wave.struct.unpack("%dh"%(len(data)/swidth),\
@@ -20,3 +25,11 @@ def analyze(frameData):
     else:
         thefreq = which*RATE/chunk
         print( "The freq is %f Hz." % (thefreq))
+
+def create(data):
+    points = []
+    
+    points.append(Point( 50, 200 ))
+    points.append(Point( 200, 50 ))
+
+    return points

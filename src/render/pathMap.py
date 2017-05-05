@@ -1,4 +1,10 @@
-import pygame.random
+import random
+import math
+
+class Point():
+        def __init__(self, startx, starty):
+            self.x = startx
+            self.y = starty
 
 class Path():
     path1 = []
@@ -7,16 +13,11 @@ class Path():
     path4 = []
     path5 = []
 
-    listPoints1 = ['''define a set of points here'''] # a set of points
+    listPoints1 = [] # a set of points
     listPoints2 = [] # another set of points
     #have same number of list points for paths
     #number of paths is up to you
     
-    class Point():
-        def __init__(self, startx, starty):
-            self.x = startx
-            self.y = starty
-
     def __init__(self, mpoint):
         #create paths (use list of points to create a path from the beginning of the array to the end)
         #can make multiple paths
@@ -38,10 +39,10 @@ class Path():
         #append p1 and p2 
         for i in mpoint:
             angle = random.randint(0,360) #2*pi*random
-            point1 = Point(rcos(angle), rsin(angle))
-            point2 = Point(rcos(angle), rsin(angle+180))
-            listpoint1.append (point1)
-            listpoint1.apeend (point2)
+            point1 = Point(int(r*math.cos(angle)), int(r*math.sin(angle)))
+            point2 = Point(int(r*math.cos(angle)), int(r*math.sin(angle+180)))
+            self.listPoints1.append(point1)
+            self.listPoints1.append(point2)
         
         self.createPath(mpoint)
         
@@ -49,19 +50,19 @@ class Path():
     class Line():
         size = 0
         line = []
-        def append(point):
-            line.append(point)
-            size += 1
+        def append(self, Point):
+            self.line.append(Point)
+            self.size += 1
 
     class SemiCircle():
         size = 0
         circle = []
-        def append(point):
-            circle.append(point)
-            size += 1
+        def append(self, point):
+            self.circle.append(point)
+            self.size += 1
 
-    def createLine(point1, point2):
-        line = Line()
+    def createLine(self, point1, point2):
+        line = self.Line()
         #creates a line between a set of points
         #basically plot a line between point 1 and 
         #record all the points in that line
@@ -73,53 +74,54 @@ class Path():
         # for loop
         for i in range(point1.x,point2.x):
             y = (point1.x+1) * m + b
-            line.append(Point(point1.x+1,y))
+            newPoint = Point( int(point1.x+1), int(y) )
+            line.append(newPoint)
         return line
         # line.append
         # boom
 
-    def distance(point1, point2):
-            return sqrt((points1.x-points2.x)*2+(points1.y-points2.y))
+    def distance(self, point1, point2):
+            return math.sqrt((point1.x-point2.x)*2+(point1.y-point2.y))
 
-    def between (mpoint,point1,point2):
-        return distance(point1,mpoint) + distance(mpoint,point2) == distance(point1,point2)
+    def between(self, mpoint,point1,point2):
+        return self.distance(point1,mpoint) + self.distance(mpoint,point2) == self.distance(point1,point2)
 
-    def createHalfCircle(point1, point2):
+    def createHalfCircle(self, point1, point2):
         #creates a half circle with angle and radius
         #x = rcos(angle)
         #y = rsin(angle)
         #radius = distance from point 1 to point 2 / 2
-        r = distance()/2  
+        r = self.distance()/2  
         #start angle = sin^-1 ( point1.y / r )
-        start = sin^-1 (point1.y / r)
+        start = math.sin^-1 (point1.y / r)
         #end angle = sin^-1 ( point2.y / r )
-        end = sin^-1 (point2.y / r)
+        end = math.sin^-1 (point2.y / r)
         #then cycle through angle degrees until you have the points of the circle
-        circle = SemiCircle()
+        circle = self.SemiCircle()
         for i in range(start,end):
-            point = Point(rcos(i),rsin(i))
+            point = Point(int(r*math.cos(i)), int(r*math.sin(i)))
             circle.append(point)
         return circle
 
-    def createPath(mpoint):
+    def createPath(self, mpoint):
         #uses listpoints to create a path
-         for count,i in enumerate(listPoints1):
+         for count,i in enumerate(self.listPoints1):
              halfcreate=False
              for m in mpoint:
-                 if count != listPoints1.size:
-                    if (between(m,i,i+1)):
-                     path1.append(createHalfCircle(i,i+1))
+                 if count+1 != len(self.listPoints1):
+                    if self.between(m,i,self.listPoints1[count+1]):
+                     path1.append(self.createHalfCircle(i,self.listPoints1[count+1]))
                      halfcreate=True
                  else:
-                    if (between(m,i,listPoints1[0])):
-                     path1.append(createHalfCircle(i,listPoints1[0]))
+                    if self.between(m,i,self.listPoints1[0]):
+                     self.path1.append(self.createHalfCircle(i,self.listPoints1[0]))
                      halfcreate=True
-             if count != listPoints1.size:
+             if count+1 != len(self.listPoints1):
                 if halfcreate == False:
-                   path1.append(createLine(i,i+1))
+                   self.path1.append(self.createLine(i,self.listPoints1[count+1]))
              else:
                 if halfcreate == False:
-                   path1.append(createLine(i,listPoints1[0]))                              
+                   self.path1.append(self.createLine(i,self.listPoints1[0]))                              
         #stores in path
         #half cirlces are made when a music point is between two line points
 
