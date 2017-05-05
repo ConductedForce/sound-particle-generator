@@ -1,11 +1,14 @@
-import pygame,random 
+import random 
 from pygame.locals import *
 import math
-import path as pt
+import render.pathMap as pt
+import pygame
 
 class Particle():
-
-        pathway = []
+        #im in the particle
+        pathPoint =  0
+        onPath = False
+        speed = 1
 
         def __init__(self, startx, starty, col):
             self.x = startx
@@ -13,59 +16,54 @@ class Particle():
             self.col = col
             self.sx = startx
             self.sy = starty
-#im in the particle
+        
         def pdis(self,points):
             store=[]
-            for p in points:
+            for count, p in enumerate(points):
                 dis = math.sqrt(math.pow(self.x-p.x,2) + math.pow(self.y-p.y,2))
                 store.append(dis)
                 low = min(float(s) for s in store)
-            return low
+            return (low, count)
 
-        def readPath(mpoints):
-            road = pt.Path(mpoints)
-            path = road.path1
-            #loop through path
-            for i in path:
-                if i.type == road.Line().type:
-                    pathway.extend(i)
-                if i.type == road.SemiCircle().type:
-                    pathway.extend(i)
-            #determine type of i
-            #i.type equals road.Line().type
-            #extend pathway[] (i)
-            # no else
-
-        def move(self, points, iO):
-                dis = self.pdis()
+        def move(self, points, iO, pathway):
+                dis, count = self.pdis(points)
                 #point loction in here / behavior
-                for i in pathway 
-
-                if:
-                else:
+               
                 #firstly, we want to get particles to path
                 #then we must get them moving
                 #as they are moving, they must have random value x radius from path point
                 #generate new position with cos/sin
+                if onPath is True:
+                    if pathPoint is pathway.size:
+                        pathPoint = 0
+                    self.x = pathway[pathPoint+1].x
+                    self.y = pathway[pathPoint+1].y
 
-                # 3 movement conditions (random, near a music point(no path), 
-                # if particle is 
-                
+                else:
+                    self.x = random.randint(0, iO.current_w)
+                    self.y = random.randint(0, iO.current_h)
+                    if dis < 20:
+                        onPath = True
+                        self.x = pathway[pathPoint].x
+                        self.y = pathway[pathPoint].y
+                        
+
                 #circle calculation
                 #t = 2*pi*random
                 #r = random[0,20]
                 #Point( cos(), sin)
 
                 #speed value will determine loop speed
-                
-                    
-                                 
+                pathPoint += 1
+                                
 class Point():
         def __init__(self, startx, starty):
             self.x = startx
             self.y = starty
 
 class Render():
+    pathway = []
+
     def __init__(self):
         self.infoObject = pygame.display.Info()
         self.screen = pygame.display.set_mode((self.infoObject.current_w, self.infoObject.current_h))
@@ -93,10 +91,24 @@ class Render():
             else: col = self.blue
             self.particles.append( Particle(0, 1000, col) )
 
+    def readPath(self, mpoints):
+            road = pt.Path(mpoints)
+            path = road.path1
+            #loop through path
+            #determine type of i
+            #i.type equals road.Line().type
+            #extend pathway[] (i)
+            # no else
+            for i in path:
+                if type(i) == type(road.Line()):
+                    self.pathway.extend(i.line)
+                if type(i) == type(road.SemiCircle()):
+                    self.pathway.extend(i.circle)
+            
     def draw(self, points):
         self.screen.fill(self.black)
         for p in self.particles:
-            p.move(points, self.infoObject)
+            p.move(points, self.infoObject, self.pathway)
             pygame.draw.circle(self.screen, p.col, (p.x, p.y), 2)
         for po in points:
             pygame.draw.circle(self.screen, self.red, (po.x, po.y), 10)
