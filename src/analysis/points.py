@@ -28,8 +28,12 @@ def analyze(frameData):
 
 def create(data):
     points = []
-    
-    points.append(Point( 50, 200 ))
-    points.append(Point( 200, 50 ))
+    if len(points) != 0:
+        points[:] = []    
+
+    points.append(Point( 200, 200 ))
+    points.append(Point( 300, 600 ))
+    points.append(Point( 1000, 500 ))
+    points.append(Point( 1000, 300 ))
 
     return points

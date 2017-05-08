@@ -40,10 +40,11 @@ def mic():
     clock = pygame.time.Clock()
     exitflag = False
     
-    points = []
+    
     micO = micb.mic() #create mic object
     activeRender = ren.Render() #create render object
     activeRender.make() #generate particles
+    
     
     while not exitflag:
         for event in pygame.event.get():
@@ -57,8 +58,8 @@ def mic():
         #main loop code
         data = micO.getMicChunkData() # input system
         points = sa.create(data) # analysis system
-        activeRender.readPath(points)
-        activeRender.draw(points) # draw system
+        pathList = activeRender.readPath(points)
+        activeRender.draw(points, pathList) # draw system
         
         pygame.display.flip()
         clock.tick(80)
