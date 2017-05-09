@@ -86,7 +86,7 @@ class Render():
     def make(self):
         for part in range(1000):
             if part % 2 > 0: col = self.green
-            #elif part % 5 > 0: col = dark_grey
+           #elif part % 5 > 0: col = dark_grey
             elif part % 3 > 0: col = self.light_blue
             else: col = self.blue
             self.particles.append( Particle(0, 1000, col) )
@@ -106,11 +106,7 @@ class Render():
             for pot in l1:
                 pygame.draw.circle(self.screen, self.agreen, (pot.x, pot.y), 10)
 
-            for i in path:
-                if type(i) == type(pt.Line()):
-                    pathway.extend(i.line)
-                if type(i) == type(pt.SemiCircle()):
-                    pathway.extend(i.circle)
+            
             road = None
             path = None
             return pathway
@@ -124,43 +120,3 @@ class Render():
             pygame.draw.circle(self.screen, self.red, (po.x, po.y), 10)
        #for pot in pathway:
            #pygame.draw.circle(self.screen, self.agreen, (pot.x, pot.y), 7)
-
-def main():
-    pygame.init()
-    
-    black = (0,0,0)
-    grey = (145,145,145)
-    light_grey = (192,192,192)
-    dark_grey = (183, 183, 183)
-    blue = (0,153,153)
-    red = (225,0,0)
-    green =(124,252,0)
-    light_blue=(0,255,255)
-
-    clock = pygame.time.Clock()
-
-    points = []
-    for d in range(10):
-        points.append( Point(random.randint(-1,800), random.randint(-1,700)) )
-
-    activeRender = Render()
-    activeRender.make()
-   
-    exitflag = False
-    while not exitflag:
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                exitflag = True
-            elif event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
-                    exitflag = True
-
-        
-        activeRender.draw(points)
-
-        pygame.display.flip()
-        clock.tick(80)
-    pygame.quit()
-
-if __name__ == "__main__":
-    main()
