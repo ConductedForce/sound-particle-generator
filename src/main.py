@@ -4,22 +4,19 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QInputDialog, QLabel, QFi
 import gui.pwindow as pwin
 import pygame
 
-#import map.detector as dt
+import input.liveFile as fileb
+import input.liveMic as micb
 import input.proj3keyboardinput as keyb
 import render.particles as ren
-#import analysis. as sa
-import render.path as pt
-import map.points as pm
+import analysis.points as sa
 
 
-
-def deploy():
+def key():
     points = []
     #pygame.init()
     clock = pygame.time.Clock()
     exitflag = False
     points = pm.create() # point generator
-    path = pt.Path()
     activeRender = ren.Render()
     activeRender.make()
     while not exitflag:
@@ -33,12 +30,40 @@ def deploy():
 
         #main loop code
         # analysis system
-        activeRender.draw(points, path) # draw system
+        activeRender.draw(points) # draw system
         
         pygame.display.flip()
         clock.tick(80)
     pygame.quit()
 
+def mic():
+    clock = pygame.time.Clock()
+    exitflag = False
+    
+    
+    micO = micb.mic() #create mic object
+    activeRender = ren.Render() #create render object
+    activeRender.make() #generate particles
+    
+    
+    while not exitflag:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exitflag = True
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    exitflag = True
+                
+
+        #main loop code
+        data = micO.getMicChunkData() # input system
+        points = sa.create(data) # analysis system
+        pathList = activeRender.readPath(points)
+        activeRender.draw(points, pathList) # draw system
+        
+        pygame.display.flip()
+        clock.tick(80)
+    pygame.quit()
 
 #a gui
 class TheGui(QMainWindow):
@@ -49,13 +74,13 @@ class TheGui(QMainWindow):
 
     #gui methods
     def live(self, MainWindow):
-        point.exitHamlet()
+        mic()
 
     def file(self, MainWindow):
-        keyb.main()
+        file()
     
     def keyboard(self, MainWindow):
-        deploy()
+        key()
 
 # main method
 def main():
