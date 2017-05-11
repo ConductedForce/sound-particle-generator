@@ -20,20 +20,21 @@ class Point():
             self.x = startx
             self.y = starty
 
+
+
 class Path():
    
-    def findpath(mpoint):
+    def findpath(self,mpoint):
         path1 = []
         path2 = []
         path3 = []
         path4 = []
         path5 = []
 
-        listPoints1 = [] # a set of points
+        self.listPoints1 = [] # a set of points
         listPoints2 = [] # another set of points
         #have same number of list points for paths
         #number of paths is up to you
-
         #loop through music points
         #take one music point
         #create two points
@@ -46,25 +47,32 @@ class Path():
         #if random angle used, add 180 for other angle
         #append p1 and p2   
         for i in mpoint:
+            self.r = 50
             angle = 2 * math.pi * random.random()
             point1 = Point(int(self.r*math.cos(angle))+i.x, int(self.r*math.sin(angle))+i.y)
             point2 = Point(int(self.r*math.cos(angle+math.pi))+i.x, int(self.r*math.sin(angle+math.pi))+i.y)
             self.listPoints1.append(point1)
             self.listPoints1.append(point2)
         
-            self.createPath(mpoint)
+        
+        pathway= []
+        pp = self.createPath(mpoint)
+        for i in pp:
+                if type(i) == type(Line()):
+                    pathway.extend(i.line)
+                if type(i) == type(SemiCircle()):
+                    pathway.extend(i.circle)
+        return pathway
 
 
 
-    def __init__(self, mpoint):
+    #def __init__(self, mpoint):
         #create paths (use list of points to create a path from the beginning of the array to the end)
         #can make multiple paths
         #init should take musical points, then create list points from that
-        self.r = 50
-        #they will be whatever radius you set from the point
-        #the music point must be between the path point
-
        
+        #they will be whatever radius you set from the point
+        #the music point must be between the path point   
 
     def createLine(self, point1, point2):
         line = Line()
@@ -137,24 +145,25 @@ class Path():
         return newCircle
 
     def createPath(self, mpoint):
+        path1 = []
         #uses listpoints to create a path
         for count,i in enumerate(self.listPoints1):
             halfcreate=False
             if count+1 != len(self.listPoints1):
                 isBetween, m = self.between(mpoint,i,self.listPoints1[count+1])
                 if isBetween:
-                    self.path1.append(self.createHalfCircle(m, i, self.listPoints1[count+1]))
+                    path1.append(self.createHalfCircle(m, i, self.listPoints1[count+1]))
                     halfcreate=True
                 else:
-                    self.path1.append(self.createLine(i,self.listPoints1[count+1]))
+                    path1.append(self.createLine(i,self.listPoints1[count+1]))
             else:
                 isBetween, m = self.between(mpoint,i,self.listPoints1[0])
                 if isBetween:
-                    self.path1.append(self.createHalfCircle(m, i, self.listPoints1[0]))
+                    path1.append(self.createHalfCircle(m, i, self.listPoints1[0]))
                     halfcreate=True
                 else:
-                    self.path1.append(self.createLine(i,self.listPoints1[0]))   
-        return Path(listPoints1)                           
+                    path1.append(self.createLine(i,self.listPoints1[0]))   
+        return path1                           
         #stores in path
         #half cirlces are made when a music point is between two line points
 
