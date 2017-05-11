@@ -42,11 +42,11 @@ try:
     gs4 = pygame.mixer.Sound('input\gs4.wav')
     '''
     #better guitar
-    A = pygame.mixer.Sound('input\A.aif')
-    B = pygame.mixer.Sound('input\B.aif')
-    D = pygame.mixer.Sound('input\D.aif')
-    E = pygame.mixer.Sound('input\E.aif')
-    G = pygame.mixer.Sound('input\G.aif')
+    A = pygame.mixer.Sound('input\A.wav')
+    B = pygame.mixer.Sound('input\B.wav')
+    D = pygame.mixer.Sound('input\D.wav')
+    E = pygame.mixer.Sound('input\E.wav')
+    G = pygame.mixer.Sound('input\G.wav')
 
     #guitar 
     g1 = pygame.mixer.Sound('input\g1.wav')
