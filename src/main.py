@@ -16,7 +16,8 @@ def key():
     #pygame.init()
     clock = pygame.time.Clock()
     exitflag = False
-    points = pm.create() # point generator
+    points = sa.create(data) # analysis system # point generator
+    pathList = activeRender.readPath(points)
     activeRender = ren.Render()
     activeRender.make()
     while not exitflag:
@@ -41,9 +42,40 @@ def mic():
     exitflag = False
     
     
-    micO = micb.mic() #create mic object
+    micO = micb.mic() #create fileSound object
     activeRender = ren.Render() #create render object
     activeRender.make() #generate particles
+    
+    data = micO.getMicChunkData() # input system
+    points = sa.create(data) # analysis system
+    pathList = activeRender.readPath(points)
+    while not exitflag:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exitflag = True
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    exitflag = True
+                
+
+        #main loop code
+       
+        activeRender.draw(points, pathList) # draw system
+        
+        pygame.display.flip()
+        clock.tick(1)
+    pygame.quit()
+
+def file():
+    clock = pygame.time.Clock()
+    exitflag = False
+    
+    
+    fileO = fileb.file() #create mic object
+    activeRender = ren.Render() #create render object
+    activeRender.make() #generate particles
+    
+    
     
     
     while not exitflag:
@@ -56,13 +88,13 @@ def mic():
                 
 
         #main loop code
-        data = micO.getMicChunkData() # input system
+        data = fileO.getFileChunkData() # input system
         points = sa.create(data) # analysis system
         pathList = activeRender.readPath(points)
         activeRender.draw(points, pathList) # draw system
         
         pygame.display.flip()
-        clock.tick(80)
+        clock.tick(1)
     pygame.quit()
 
 #a gui
