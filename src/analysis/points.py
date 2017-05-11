@@ -26,6 +26,10 @@ def analyze(frameData):
         thefreq = which*RATE/chunk
         print( "The freq is %f Hz." % (thefreq))
 
+
+
+#append speeds take average
+
 def create(data):
     points = []
     if len(points) != 0:
