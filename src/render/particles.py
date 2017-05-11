@@ -25,7 +25,7 @@ class Particle():
                 low = min(float(s) for s in store)
             return low
 
-        def move(self, points, iO, pathway):
+        def move(self, points, iO,path):
                 dis = self.pdis(points)
                 #point loction in here / behavior
                 
@@ -34,18 +34,18 @@ class Particle():
                 #as they are moving, they must have random value x radius from path point
                 #generate new position with cos/sin
                 if self.onPath is True:
-                    if self.pathPoint >= len(pathway)-1:
+                    if self.pathPoint >= len(path)-1:
                         self.pathPoint = 0
-                    self.x = pathway[self.pathPoint+1].x
-                    self.y = pathway[self.pathPoint+1].y
+                    self.x = path[self.pathPoint+1].x
+                    self.y = path[self.pathPoint+1].y
                 else:
                     self.x = random.randint(0, iO.current_w)
                     self.y = random.randint(0, iO.current_h)
                     if dis < 50:
                         self.onPath = True
-                        self.pathPoint = random.randint(0,len(pathway)-1)
-                        self.x = pathway[self.pathPoint].x
-                        self.y = pathway[self.pathPoint].y
+                        self.pathPoint = random.randint(0,len(path)-1)
+                        self.x = path[self.pathPoint].x
+                        self.y = path[self.pathPoint].y
                         
 
                 #circle calculation
@@ -90,31 +90,26 @@ class Render():
             elif part % 3 > 0: col = self.light_blue
             else: col = self.blue
             self.particles.append( Particle(0, 1000, col) )
-
+                
     def readPath(self, mpoints):
-            road = pt.Path(mpoints)
-            path = road.path1
-            pathway = []         
-            if len(pathway) != 0:
-                pathway[:] = []
+            path = pt.Path().findpath(mpoints)
+            return path
             #loop through path
             #determine type of i
             #i.type equals road.Line().type
             #extend pathway[] (i)
             # no else
-            l1 = road.listPoints1
-            for pot in l1:
-                pygame.draw.circle(self.screen, self.agreen, (pot.x, pot.y), 10)
+            #for pot in path:
+             #   pygame.draw.circle(self.screen, self.agreen, (pot.x, pot.y), 10)
 
             
-            road = None
-            path = None
-            return pathway
+            #road = None
+            #path = None
             
-    def draw(self, points, pathway):
+    def draw(self, points,path):
         self.screen.fill(self.black)
         for p in self.particles:
-            p.move(points, self.infoObject, pathway)
+            p.move(points, self.infoObject, path)
             pygame.draw.circle(self.screen, p.col, (p.x, p.y), 2)
         for po in points:
             pygame.draw.circle(self.screen, self.red, (po.x, po.y), 10)
