@@ -38,6 +38,6 @@ def create(data):
     points.append(Point( 200, 200 ))
     points.append(Point( 300, 600 ))
     points.append(Point( 1000, 500 ))
-    points.append(Point( 1000, 300 ))
+    points.append(Point( 750, 150 ))
 
     return points
