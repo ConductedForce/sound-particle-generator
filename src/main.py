@@ -57,13 +57,13 @@ def mic():
                 if event.key == pygame.K_ESCAPE:
                     exitflag = True
                 
-
+        
         #main loop code
-       
+        #sa.analyze(data)
         activeRender.draw(points, pathList) # draw system
         
         pygame.display.flip()
-        clock.tick(1)
+        clock.tick(80)
     pygame.quit()
 
 def file():
