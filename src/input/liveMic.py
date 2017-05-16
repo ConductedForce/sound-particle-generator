@@ -9,18 +9,19 @@ class mic():
         
         FORMAT = pyaudio.paInt16
         CHANNELS = 2
-        RATE = 44100  
-        
+        self.RATE = 44100  
+        self.form = FORMAT
 
         self.stream = self.p.open(format=FORMAT,
                     channels=CHANNELS,
-                    rate=RATE,
+                    rate=self.RATE,
                     input=True,
                     frames_per_buffer=self.CHUNK)
 
     def getMicChunkData(self):
-          data = self.stream.read(self.CHUNK)
-          return data
+        data = self.stream.read(self.CHUNK)
+        swidth = self.p.get_sample_size(self.form)
+        return ((data, self.CHUNK, swidth ), self.RATE) #returns chunk
        
 
     def killMic(self):

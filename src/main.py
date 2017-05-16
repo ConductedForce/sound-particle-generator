@@ -46,9 +46,7 @@ def mic():
     activeRender = ren.Render() #create render object
     activeRender.make() #generate particles
     
-    data = micO.getMicChunkData() # input system
-    points = sa.create(data) # analysis system
-    pathList = activeRender.readPath(points)
+    test = 1
     while not exitflag:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -59,7 +57,12 @@ def mic():
                 
         
         #main loop code
-        #sa.analyze(data)
+        data,rate = micO.getMicChunkData() # input system
+        sa.analyze(data, rate)
+        if test == 1:
+            points = sa.create(data) # analysis system
+            test += 1
+            pathList = activeRender.readPath(points)
         activeRender.draw(points, pathList) # draw system
         
         pygame.display.flip()
@@ -77,7 +80,7 @@ def file():
     
     
     
-    
+    test = 1
     while not exitflag:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -88,13 +91,16 @@ def file():
                 
 
         #main loop code
-        data = fileO.getFileChunkData() # input system
-        points = sa.create(data) # analysis system
-        pathList = activeRender.readPath(points)
+        data, rate = fileO.getFileChunkData() # input system
+        sa.analyze(data, rate)
+        if test == 1:
+            points = sa.create(data) # analysis system
+            test += 1
+            pathList = activeRender.readPath(points)
         activeRender.draw(points, pathList) # draw system
         
         pygame.display.flip()
-        clock.tick(1)
+        clock.tick(rate)
     pygame.quit()
 
 #a gui
