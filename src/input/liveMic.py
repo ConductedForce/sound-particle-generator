@@ -1,3 +1,7 @@
+'''
+liveMic.py
+Returns opens mic and returns frameData
+'''
 import pyaudio
 import numpy
 

@@ -1,3 +1,7 @@
+'''
+particles.py
+Creates Particles and Renders them to screen
+'''
 import random 
 from pygame.locals import *
 import math

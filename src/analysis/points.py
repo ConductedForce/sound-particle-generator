@@ -1,3 +1,7 @@
+'''
+points.py
+Returns point and freq of sounds.
+'''
 import pyaudio
 import wave
 import numpy as np

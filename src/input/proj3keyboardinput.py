@@ -100,16 +100,7 @@ def input(event):
         E.play()
     elif event.key == pygame.K_g:
         G.play()
-        '''
-           elif event.key == pygame.K_h:
-               gp3.play()
-           elif event.key == pygame.K_j:
-               gp4.play()
-           elif event.key == pygame.K_k:
-               gs3.play()
-           elif event.key == pygame.K_l:
-               gs4.play()
-        '''
+    return random.randint(0,1000)
 
        
 if __name__ == "__main__":
