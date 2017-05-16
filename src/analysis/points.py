@@ -9,8 +9,8 @@ class Point():
 
 def analyze(frameData):
     # unpack the data and times by the hamming window
-    indata = np.array(wave.struct.unpack("%dh"%(len(data)/swidth),\
-                                         data))*window
+    indata = np.array(wave.struct.unpack("%dh"%(len(frameData)/swidth),\
+                                         frameData))*window
     # Take the fft and square each value
     fftData=abs(np.fft.rfft(indata))**2
     # find the maximum

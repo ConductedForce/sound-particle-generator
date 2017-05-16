@@ -4,22 +4,23 @@ import numpy as np
 from PyQt5.QtWidgets import QFileDialog
 
 class file():
-    CHUNK = 2048
+    CHUNK = 1024
     p = pyaudio.PyAudio()
 
     def __init__(self, **kwargs):
-        options = QFileDialog.Options()
-        options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","All Files (*);;Python Files (*.py)", options=options)
-        if fileName:
-            self.wf = wave.open(filename, 'rb') #reads the file, sets to read only
+        #options = QFileDialog.Options()
+        #options |= QFileDialog.DontUseNativeDialog
+        #fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","All Files (*);;Python Files (*.py)", options=options)
+        #if fileName:
+        filename = "input/The Normandy Reborn.wav"
+        self.wf = wave.open(filename, 'rb') #reads the file, sets to read only
         #print("File Read")
         swidth = self.wf.getsampwidth()
-        RATE = self.wf.getframerate()
+        RATE = 44100
 
         
         self.stream = self.p.open(format =
-                        p.get_format_from_width(self.wf.getsampwidth()),
+                        self.p.get_format_from_width(self.wf.getsampwidth()),
                         channels = self.wf.getnchannels(),
                         rate = RATE,
                         output = True)
@@ -33,4 +34,3 @@ class file():
     def killFile(self):
         self.stream.close()
         self.p.terminate()
-
