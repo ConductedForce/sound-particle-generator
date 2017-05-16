@@ -106,12 +106,20 @@ class Render():
             #road = None
             #path = None
             
-    def draw(self, points,path):
+    def draw(self, points,path,feq):
         self.screen.fill(self.black)
+        if feq <= 500:
+           color = blue
+        if feq >= 500 and feq <= 900:
+           color = agreen 
+        if feq > 900 :
+           color = red
+               
         for p in self.particles:
             p.move(points, self.infoObject, path)
             pygame.draw.circle(self.screen, p.col, (p.x, p.y), 2)
         for po in points:
             pygame.draw.circle(self.screen, self.red, (po.x, po.y), 10)
+
        #for pot in pathway:
            #pygame.draw.circle(self.screen, self.agreen, (pot.x, pot.y), 7)
