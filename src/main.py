@@ -58,12 +58,12 @@ def mic():
         
         #main loop code
         data,rate = micO.getMicChunkData() # input system
-        sa.analyze(data, rate)
+        freq = sa.analyze(data, rate)
         if test == 1:
             points = sa.create(data) # analysis system
             test += 1
             pathList = activeRender.readPath(points)
-        activeRender.draw(points, pathList) # draw system
+        activeRender.draw(points, pathList, freq) # draw system
         
         pygame.display.flip()
         clock.tick(80)
@@ -92,12 +92,12 @@ def file():
 
         #main loop code
         data, rate = fileO.getFileChunkData() # input system
-        sa.analyze(data, rate)
+        freq = sa.analyze(data, rate)
         if test == 1:
             points = sa.create(data) # analysis system
             test += 1
             pathList = activeRender.readPath(points)
-        activeRender.draw(points, pathList) # draw system
+        activeRender.draw(points, pathList, freq) # draw system
         
         pygame.display.flip()
         clock.tick(rate)
