@@ -80,7 +80,7 @@ def mic():
         activeRender.draw(points, pathList, freq) # draw system
         
         pygame.display.flip()
-        clock.tick(80)
+        clock.tick(rate)
     pygame.quit()
 
 def file():
