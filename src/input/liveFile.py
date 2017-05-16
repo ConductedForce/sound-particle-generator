@@ -1,3 +1,8 @@
+'''
+liveFile.py
+Obtains a File and returns frameData. 
+'''
+
 import pyaudio
 import wave
 import numpy as np

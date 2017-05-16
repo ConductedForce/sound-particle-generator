@@ -1,3 +1,14 @@
+'''
+Project 3
+Abel, Joseph, Brandon
+Abel = Particles.py, pathMap.py
+Brandon = main.py, points.py, pwindow.py
+Joseph = proj3keyboardinput.py, liveFile.py, liveMic.py
+
+
+main.py
+Allows operation of 3 input schemes and renders them appropiately
+'''
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QInputDialog, QLabel, QFileDialog
 #import PyQt5.QtMultimedia as M 
@@ -9,6 +20,7 @@ import input.liveMic as micb
 import input.proj3keyboardinput as keyb
 import render.particles as ren
 import analysis.points as sa
+import random
 
 
 def key():
@@ -16,10 +28,12 @@ def key():
     #pygame.init()
     clock = pygame.time.Clock()
     exitflag = False
+    data = clock
     points = sa.create(data) # analysis system # point generator
-    pathList = activeRender.readPath(points)
     activeRender = ren.Render()
     activeRender.make()
+    pathList = activeRender.readPath(points)
+    freq = 499
     while not exitflag:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -27,11 +41,11 @@ def key():
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     exitflag = True
-                keyb.input(event) # input system
+                freq = keyb.input(event) # input system
 
         #main loop code
         # analysis system
-        activeRender.draw(points) # draw system
+        activeRender.draw(points, pathList, freq) # draw system
         
         pygame.display.flip()
         clock.tick(80)
@@ -58,15 +72,15 @@ def mic():
         
         #main loop code
         data,rate = micO.getMicChunkData() # input system
-        sa.analyze(data, rate)
+        freq = sa.analyze(data, rate)
         if test == 1:
             points = sa.create(data) # analysis system
             test += 1
             pathList = activeRender.readPath(points)
-        activeRender.draw(points, pathList) # draw system
+        activeRender.draw(points, pathList, freq) # draw system
         
         pygame.display.flip()
-        clock.tick(80)
+        clock.tick(rate)
     pygame.quit()
 
 def file():
@@ -92,12 +106,12 @@ def file():
 
         #main loop code
         data, rate = fileO.getFileChunkData() # input system
-        sa.analyze(data, rate)
+        freq = sa.analyze(data, rate)
         if test == 1:
             points = sa.create(data) # analysis system
             test += 1
             pathList = activeRender.readPath(points)
-        activeRender.draw(points, pathList) # draw system
+        activeRender.draw(points, pathList, freq) # draw system
         
         pygame.display.flip()
         clock.tick(rate)
