@@ -191,16 +191,16 @@ class Path():
         for count,i in enumerate(self.listPoints1):
             halfcreate=False
             if count+1 != len(self.listPoints1):
-                #isBetween, m = self.between(mpoint,i,self.listPoints1[count+1])
-                isBetween, m = self.circlecontact(mpoint,i,self.listPoints1[count+1])
+                isBetween, m = self.between(mpoint,i,self.listPoints1[count+1])
+                #isBetween, m = self.circlecontact(mpoint,i,self.listPoints1[count+1])
                 if isBetween:
                     path1.append(self.createHalfCircle(m, i, self.listPoints1[count+1]))
                     halfcreate=True
                 else:
                     path1.append(self.createLine(i,self.listPoints1[count+1]))
             else:
-                #isBetween, m = self.between(mpoint,i,self.listPoints1[0])
-                isBetween, m = self.circlecontact(mpoint,i,self.listPoints1[0])
+                isBetween, m = self.between(mpoint,i,self.listPoints1[0])
+                #isBetween, m = self.circlecontact(mpoint,i,self.listPoints1[0])
                 if isBetween:
                     path1.append(self.createHalfCircle(m, i, self.listPoints1[0]))
                     halfcreate=True
