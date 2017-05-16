@@ -1,3 +1,8 @@
+'''
+pathMap.py
+Takes sound points and creates path from them
+'''
+
 import random
 import math
 import pygame

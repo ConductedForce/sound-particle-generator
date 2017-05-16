@@ -1,3 +1,10 @@
+'''
+pwindow.py
+Creates User Interface
+Allows running of 3 different options
+'''
+
+
 # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'pwindow.ui'
@@ -5,6 +12,7 @@
 # Created by: PyQt5 UI code generator 5.8.1
 #
 # WARNING! All changes made in this file will be lost!
+
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
