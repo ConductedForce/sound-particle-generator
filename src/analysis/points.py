@@ -1,6 +1,7 @@
 import pyaudio
 import wave
 import numpy as np
+import pygame
 
 class Point():
         def __init__(self, startx, starty):
@@ -33,9 +34,11 @@ def analyze(data, RATE):
         # find the frequency and output it
         thefreq = (which+x1)*RATE/chunk
         print ("The freq is %f kHz." % (thefreq/1000))
+        return (thefreq/1000)
     else:
         thefreq = which*RATE/chunk
         print( "The freq is %f kHz." % (thefreq/1000))
+        return (thefreq/1000)
 
 
 
@@ -45,10 +48,30 @@ def create(data):
     points = []
     if len(points) != 0:
         points[:] = []    
+    infoObject = pygame.display.Info()
+    width = infoObject.current_w
+    height = infoObject.current_h
+    
+    center = Point(width/2, height/2)
+    box1 = Point(width/3, height/3)
+    box2 = Point(box1.x, box1.y*2)
+    box3 = Point(box1.x, height)
+    box4 = Point(box1.x*2, box1.y)
+    box5 = Point(box1.x*2, box1.y*2)
+    box6 = Point(box1.x*2, height)
+    box7 = Point(width, box1.y)
+    box8 = Point(width, box1.y*2)
+    box9 = Point(width, height)
 
-    points.append(Point( 200, 200 ))
+    points.append(Point( (int)(box1.x*.75), (int)(box1.y*.75) ))
     points.append(Point( 300, 600 ))
     points.append(Point( 1000, 500 ))
     points.append(Point( 750, 150 ))
+    #points.append(Point( 750, 150 ))
+    #points.append(Point( 750, 150 ))
+    #points.append(Point( 750, 150 ))
+    #points.append(Point( 750, 150 ))
+
+
 
     return points
